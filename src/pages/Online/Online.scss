@@ -1,0 +1,34 @@
+@import '../../variables';
+
+.entries-content {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin-bottom: 36px;
+}
+
+.search-container {
+    .inputs {
+        display: flex;
+        justify-content: space-around;
+        align-items: flex-end;
+        padding: 0px 60px 50px;
+    }
+
+    .info-results {
+        text-align: end;
+        font-size: 20px;
+        margin-bottom: 30px;
+    }
+
+    .results {
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        margin-bottom: 36px;
+
+        .card {
+            margin-bottom: 24px;
+        }
+    }
+}
