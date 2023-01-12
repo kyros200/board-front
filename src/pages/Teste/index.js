@@ -1,40 +1,41 @@
 import React, { useState, useEffect } from 'react';
 import io from 'socket.io-client';
 
-const socket = io("http://localhost:80");
+const client = io("http://localhost:80");
 
 function App() {
-  const [isConnected, setIsConnected] = useState(socket.connected);
+  const [isConnected, setIsConnected] = useState(client.connected);
   const [lastPong, setLastPong] = useState(null);
 
   useEffect(() => {
-    socket.on('connect', () => {
+    client.on('connect', () => {
       setIsConnected(true);
     });
-
-    socket.on('disconnect', () => {
+ 
+    client.on('disconnect', () => {
       setIsConnected(false);
     });
 
-    socket.on('pong_public', () => {
+    client.on('pong_public', () => {
         setLastPong(new Date().toISOString());
-        alert("public")
+        console.log("public")
     });
 
-    socket.on('pong_private', () => {
+    client.on('pong_private', () => {
         setLastPong(new Date().toISOString());
-        alert("private")
+        console.log("private")
     });
 
     return () => {
-      socket.off('connect');
-      socket.off('disconnect');
-      socket.off('pong');
+      client.off('connect');
+      client.off('disconnect');
+      client.off('pong_public');
+      client.off('pong_private');
     };
   }, []);
 
   const sendPing = () => {
-    socket.emit('ping', (res) => {
+    client.emit('ping', (res) => {
         console.log(res)
     });
   }
